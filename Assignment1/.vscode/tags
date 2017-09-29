@@ -1,0 +1,44 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BATCHES	../q3.py	/^BATCHES = 50$/;"	kind:variable	line:4
+BatchSampler	../q3.py	/^class BatchSampler(object):$/;"	kind:class	line:6
+LRLS	../q2.py	/^def LRLS(test_datum,x_train,y_train, tau,lam=1e-5):$/;"	kind:function	line:55
+N	../q2.py	/^N = x.shape[0]$/;"	kind:variable	line:15
+__init__	../q3.py	/^    def __init__(self, data, targets, batch_size):$/;"	kind:member	line:13
+boston	../q2.py	/^boston = load_boston()$/;"	kind:variable	line:13
+cosine_similarity	../q3.py	/^def cosine_similarity(vec1, vec2):$/;"	kind:function	line:63
+d	../q2.py	/^d = x.shape[1]$/;"	kind:variable	line:17
+datasets	../q1.py	/^from sklearn import datasets$/;"	kind:namespace	line:1
+fit_regression	../q1.py	/^def fit_regression(X,Y):$/;"	kind:function	line:27
+get_batch	../q3.py	/^    def get_batch(self, m=None):$/;"	kind:member	line:32
+idx	../q2.py	/^idx = np.random.permutation(range(N))$/;"	kind:variable	line:20
+l2	../q2.py	/^def l2(A,B):$/;"	kind:function	line:23
+lin_reg_gradient	../q3.py	/^def lin_reg_gradient(X, y, w):$/;"	kind:function	line:74
+load_boston	../q2.py	/^from sklearn.datasets import load_boston$/;"	kind:namespace	line:9
+load_boston	../q3.py	/^from sklearn.datasets import load_boston$/;"	kind:namespace	line:2
+load_data	../q1.py	/^def load_data():$/;"	kind:function	line:5
+load_data_and_init_params	../q3.py	/^def load_data_and_init_params():$/;"	kind:function	line:44
+main	../q1.py	/^def main():$/;"	kind:function	line:32
+main	../q3.py	/^def main():$/;"	kind:function	line:80
+matplotlib	../q1.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:2
+matplotlib	../q2.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:7
+np	../q1.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../q2.py	/^import numpy as np$/;"	kind:namespace	line:8
+np	../q3.py	/^import numpy as np$/;"	kind:namespace	line:1
+plt	../q1.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:2
+plt	../q2.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:7
+print_function	../q2.py	/^from __future__ import print_function$/;"	kind:namespace	line:6
+q1.py	../q1.py	1;"	kind:file	line:1
+q2.py	../q2.py	1;"	kind:file	line:1
+q3.py	../q3.py	1;"	kind:file	line:1
+random_batch_indices	../q3.py	/^    def random_batch_indices(self, m=None):$/;"	kind:member	line:20
+run_k_fold	../q2.py	/^def run_k_fold(x,y,taus,k):$/;"	kind:function	line:71
+run_on_fold	../q2.py	/^def run_on_fold(x_test, y_test, x_train, y_train, taus):$/;"	kind:function	line:36
+visualize	../q1.py	/^def visualize(X, y, features):$/;"	kind:function	line:13
+x	../q2.py	/^x = boston['data']$/;"	kind:variable	line:14
+x	../q2.py	/^x = np.concatenate((np.ones((506,1)),x),axis=1) #add constant one feature - no bias needed$/;"	kind:variable	line:16
+y	../q2.py	/^y = boston['target']$/;"	kind:variable	line:18
