@@ -15,6 +15,9 @@ class BatchSampler(object):
         self.features = data.shape[1]
         self.batch_size = batch_size
 
+        self.data = data
+        self.targets = targets
+
         self.indices = np.arange(self.num_points)
 
     def random_batch_indices(self, m=None):
@@ -36,8 +39,8 @@ class BatchSampler(object):
         If m is given the batch will be of size m. Otherwise will default to the class initialized value.
         '''
         indices = self.random_batch_indices(m)
-        X_batch = np.take(X, indices, 0)
-        y_batch = y[indices]
+        X_batch = np.take(self.data, indices, 0)
+        y_batch = self.targets[indices]
         return X_batch, y_batch    
 
 
