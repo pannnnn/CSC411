@@ -1,8 +1,7 @@
 from sklearn import datasets
 import matplotlib.pyplot as plt
 import numpy as np
-
-SEED = 8
+np.random.seed(0)
 
 def load_data():
     boston = datasets.load_boston()
@@ -40,10 +39,9 @@ def main():
     print("Features: {}".format(features))
     
     # Visualize the features
-    # visualize(X, y, features)
+    visualize(X, y, features)
 
     #TODO: Split data into train and test
-    np.random.seed(SEED)
     data_count = X.shape[0]
     indices = np.arange(data_count)
     indices_80per = np.sort(np.random.choice(data_count, int(data_count*0.8), replace=False))
@@ -61,7 +59,6 @@ def main():
     # Compute fitted values, MSE, etc.
     expected_y =  np.dot(test_set_x, w)
     MSE  = np.sum(np.square(expected_y - test_set_y))/test_set_x.shape[0]
-    print(MSE)
 
 
 if __name__ == "__main__":
