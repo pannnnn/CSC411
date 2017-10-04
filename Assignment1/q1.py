@@ -30,8 +30,8 @@ def fit_regression(X,Y):
     # Remember to use np.linalg.solve instead of inverting!
     identity_matrix = np.identity(X.shape[1])
     X_transpose = np.transpose(X)
-    inverse_of_X_X_transpose = np.linalg.solve(np.dot(X_transpose, X), identity_matrix)
-    return np.dot(np.dot(inverse_of_X_X_transpose, X_transpose), Y)
+    inverse_of_X_X_transpose = np.linalg.solve(np.matmul(X_transpose, X), identity_matrix)
+    return np.matmul(np.matmul(inverse_of_X_X_transpose, X_transpose), Y)
 
 def main():
     # Load the data
@@ -57,8 +57,9 @@ def main():
     w = fit_regression(training_set_x, training_set_y)
 
     # Compute fitted values, MSE, etc.
-    expected_y =  np.dot(test_set_x, w)
+    expected_y =  np.matmul(test_set_x, w)
     MSE  = np.sum(np.square(expected_y - test_set_y))/test_set_x.shape[0]
+    print(MSE)
 
 
 if __name__ == "__main__":

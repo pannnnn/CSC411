@@ -4,41 +4,61 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+A	../optdemo.py	/^    A = A \/ np.linalg.norm(A)$/;"	kind:variable	line:57
+A	../optdemo.py	/^    A = np.dot(A.T,A)$/;"	kind:variable	line:55
+A	../optdemo.py	/^    A = np.dot(A.T,A)$/;"	kind:variable	line:56
+A	../optdemo.py	/^    A = np.random.randn(2,2)$/;"	kind:variable	line:54
 BATCHES	../q3.py	/^BATCHES = 50$/;"	kind:variable	line:4
 BatchSampler	../q3.py	/^class BatchSampler(object):$/;"	kind:class	line:6
-LRLS	../q2.py	/^def LRLS(test_datum,x_train,y_train, tau,lam=1e-5):$/;"	kind:function	line:55
-N	../q2.py	/^N = x.shape[0]$/;"	kind:variable	line:15
+LRLS	../q2.py	/^def LRLS(test_datum,x_train,y_train, tau,lam=1e-5):$/;"	kind:function	line:56
+N	../q2.py	/^N = x.shape[0]$/;"	kind:variable	line:16
+Z	../optdemo.py	/^    Z = ls_contour(X,Y,A)$/;"	kind:variable	line:60
 __init__	../q3.py	/^    def __init__(self, data, targets, batch_size):$/;"	kind:member	line:13
-boston	../q2.py	/^boston = load_boston()$/;"	kind:variable	line:13
-cosine_similarity	../q3.py	/^def cosine_similarity(vec1, vec2):$/;"	kind:function	line:63
-d	../q2.py	/^d = x.shape[1]$/;"	kind:variable	line:17
+boston	../q2.py	/^boston = load_boston()$/;"	kind:variable	line:14
+cosine_similarity	../q3.py	/^def cosine_similarity(vec1, vec2):$/;"	kind:function	line:66
+d	../q2.py	/^d = x.shape[1]$/;"	kind:variable	line:18
 datasets	../q1.py	/^from sklearn import datasets$/;"	kind:namespace	line:1
-fit_regression	../q1.py	/^def fit_regression(X,Y):$/;"	kind:function	line:27
-get_batch	../q3.py	/^    def get_batch(self, m=None):$/;"	kind:member	line:32
-idx	../q2.py	/^idx = np.random.permutation(range(N))$/;"	kind:variable	line:20
-l2	../q2.py	/^def l2(A,B):$/;"	kind:function	line:23
-lin_reg_gradient	../q3.py	/^def lin_reg_gradient(X, y, w):$/;"	kind:function	line:74
+fit_regression	../q1.py	/^def fit_regression(X,Y):$/;"	kind:function	line:28
+get_batch	../q3.py	/^    def get_batch(self, m=None):$/;"	kind:member	line:35
+idx	../q2.py	/^idx = np.random.permutation(range(N))$/;"	kind:variable	line:21
+init_params	../optdemo.py	/^    init_params = np.array([4,-4])$/;"	kind:variable	line:67
+l2	../q2.py	/^def l2(A,B):$/;"	kind:function	line:24
+lin_reg_gradient	../q3.py	/^def lin_reg_gradient(X, y, w):$/;"	kind:function	line:77
+line_search	../optdemo.py	/^from scipy.optimize import line_search$/;"	kind:namespace	line:3
 load_boston	../q2.py	/^from sklearn.datasets import load_boston$/;"	kind:namespace	line:9
 load_boston	../q3.py	/^from sklearn.datasets import load_boston$/;"	kind:namespace	line:2
-load_data	../q1.py	/^def load_data():$/;"	kind:function	line:5
-load_data_and_init_params	../q3.py	/^def load_data_and_init_params():$/;"	kind:function	line:44
-main	../q1.py	/^def main():$/;"	kind:function	line:32
-main	../q3.py	/^def main():$/;"	kind:function	line:80
+load_data	../q1.py	/^def load_data():$/;"	kind:function	line:6
+load_data_and_init_params	../q3.py	/^def load_data_and_init_params():$/;"	kind:function	line:47
+logsumexp	../q2.py	/^from scipy.misc import logsumexp$/;"	kind:namespace	line:10
+losses	../q2.py	/^    losses = run_k_fold(x,y,taus,k=5)$/;"	kind:variable	line:112
+ls	../optdemo.py	/^def ls(params,A):$/;"	kind:function	line:39
+ls_contour	../optdemo.py	/^def ls_contour(X,Y,A):$/;"	kind:function	line:45
+ls_fun	../optdemo.py	/^def ls_fun(params,A):$/;"	kind:function	line:33
+ls_grad	../optdemo.py	/^def ls_grad(params,A):$/;"	kind:function	line:36
+main	../q1.py	/^def main():$/;"	kind:function	line:36
+main	../q3.py	/^def main():$/;"	kind:function	line:83
 matplotlib	../q1.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:2
 matplotlib	../q2.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:7
+np	../optdemo.py	/^import numpy as np$/;"	kind:namespace	line:1
 np	../q1.py	/^import numpy as np$/;"	kind:namespace	line:3
 np	../q2.py	/^import numpy as np$/;"	kind:namespace	line:8
 np	../q3.py	/^import numpy as np$/;"	kind:namespace	line:1
+optdemo.py	../optdemo.py	1;"	kind:file	line:1
 plt	../q1.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:2
 plt	../q2.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:7
 print_function	../q2.py	/^from __future__ import print_function$/;"	kind:namespace	line:6
+pylab	../optdemo.py	/^import pylab$/;"	kind:namespace	line:2
 q1.py	../q1.py	1;"	kind:file	line:1
 q2.py	../q2.py	1;"	kind:file	line:1
 q3.py	../q3.py	1;"	kind:file	line:1
-random_batch_indices	../q3.py	/^    def random_batch_indices(self, m=None):$/;"	kind:member	line:20
-run_k_fold	../q2.py	/^def run_k_fold(x,y,taus,k):$/;"	kind:function	line:71
-run_on_fold	../q2.py	/^def run_on_fold(x_test, y_test, x_train, y_train, taus):$/;"	kind:function	line:36
-visualize	../q1.py	/^def visualize(X, y, features):$/;"	kind:function	line:13
-x	../q2.py	/^x = boston['data']$/;"	kind:variable	line:14
-x	../q2.py	/^x = np.concatenate((np.ones((506,1)),x),axis=1) #add constant one feature - no bias needed$/;"	kind:variable	line:16
-y	../q2.py	/^y = boston['target']$/;"	kind:variable	line:18
+random_batch_indices	../q3.py	/^    def random_batch_indices(self, m=None):$/;"	kind:member	line:23
+run_k_fold	../q2.py	/^def run_k_fold(x,y,taus,k):$/;"	kind:function	line:85
+run_on_fold	../q2.py	/^def run_on_fold(x_test, y_test, x_train, y_train, taus):$/;"	kind:function	line:37
+steepest_descent	../optdemo.py	/^def steepest_descent(grad_fun,params,num_iters, *varargs):$/;"	kind:function	line:5
+taus	../q2.py	/^    taus = np.logspace(1.0,3,200)$/;"	kind:variable	line:111
+visualize	../q1.py	/^def visualize(X, y, features):$/;"	kind:function	line:14
+x	../optdemo.py	/^    x = np.linspace(-5,5,100)$/;"	kind:variable	line:58
+x	../q2.py	/^x = boston['data']$/;"	kind:variable	line:15
+x	../q2.py	/^x = np.concatenate((np.ones((506,1)),x),axis=1) #add constant one feature - no bias needed$/;"	kind:variable	line:17
+y	../q2.py	/^    y = y.reshape(y.shape[0], 1)$/;"	kind:variable	line:110
+y	../q2.py	/^y = boston['target']$/;"	kind:variable	line:19

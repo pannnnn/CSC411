@@ -7,6 +7,7 @@ from __future__ import print_function
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.datasets import load_boston
+from scipy.misc import logsumexp
 np.random.seed(0)
 
 # load boston housing prices dataset
@@ -62,7 +63,20 @@ def LRLS(test_datum,x_train,y_train, tau,lam=1e-5):
     output is y_hat the prediction on test_datum
     '''
     ## TODO
-    return None
+    test_datum = test_datum.reshape(test_datum.shape[1],test_datum.shape[0])
+    exp_component = np.true_divide(-l2(test_datum, x_train), 2*tau**2)
+    numerator = np.exp(exp_component)
+    denominator = np.exp(logsumexp(exp_component))
+    a_i = np.true_divide(numerator, denominator).reshape(x_train.shape[0])
+    A = np.diag(a_i)
+    X_transpose = np.transpose(x_train)
+    X_transpose_A_X = np.matmul(np.matmul(X_transpose, A), x_train)
+    identity_matrix = np.identity(x_train.shape[1])
+    X_transpose_A_X_plus_lam_I = X_transpose_A_X + lam * identity_matrix
+    inverse_of_X_transpose_A_X_plus_lam_I = np.linalg.solve(X_transpose_A_X_plus_lam_I, identity_matrix)
+    w_star = np.matmul(np.matmul(np.matmul(inverse_of_X_transpose_A_X_plus_lam_I, X_transpose), A), y_train)
+    y_hat = np.matmul(test_datum, w_star)
+    return np.squeeze(y_hat, axis=(1,))
     ## TODO
 
 
@@ -77,14 +91,26 @@ def run_k_fold(x,y,taus,k):
     output is losses a vector of k-fold cross validation losses one for each tau value
     '''
     ## TODO
-    return None
+    split_idx = np.array_split(idx, k)
+    losses = np.zeros((k, taus.shape[0]))
+    for i in range(k):
+        test_set_index = np.sort(split_idx[i])
+        training_set_index = np.sort(np.concatenate(tuple(split_idx[:i]+split_idx[i+1:])))
+        x_test = x[test_set_index]
+        y_test = y[test_set_index]
+        x_train = x[training_set_index]
+        y_train = y[training_set_index]
+        losses[i,:] = run_on_fold(x_test, y_test, x_train, y_train, taus)
+    return np.average(losses, axis=0)
     ## TODO
 
 
 if __name__ == "__main__":
     # In this excersice we fixed lambda (hard coded to 1e-5) and only set tau value. Feel free to play with lambda as well if you wish
+    y = y.reshape(y.shape[0], 1)
     taus = np.logspace(1.0,3,200)
     losses = run_k_fold(x,y,taus,k=5)
     plt.plot(losses)
+    plt.savefig('taus_plot.png', bbox_inches='tight')
     print("min loss = {}".format(losses.min()))
 
