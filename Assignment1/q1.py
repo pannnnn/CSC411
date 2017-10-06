@@ -1,6 +1,7 @@
 from sklearn import datasets
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 np.random.seed(0)
 
 def load_data():
@@ -19,10 +20,12 @@ def visualize(X, y, features):
     for i in range(feature_count):
         plt.subplot(3, 5, i + 1)
         #TODO: Plot feature i against y
+        plt.xlabel(features[i])
         plt.plot(X[:,i], y, 'ro', ms=1)
     
     plt.tight_layout()
-    plt.show()
+    plt.savefig('part1_features.png')
+    # plt.show()
 
 
 def fit_regression(X,Y):
@@ -33,6 +36,16 @@ def fit_regression(X,Y):
     inverse_of_X_X_transpose = np.linalg.solve(np.matmul(X_transpose, X), identity_matrix)
     return np.matmul(np.matmul(inverse_of_X_X_transpose, X_transpose), Y)
 
+def plot_table(features, w):
+    features= features.reshape(13,1)
+    weights = w[1:].astype(str).reshape(13,1)
+    data = np.concatenate((features, weights), axis=1)
+    collabel = ["Feature", "Weights"]
+    plt.table(cellText=data,colLabels=collabel,loc='center')
+    plt.axis('off')
+    plt.savefig('part1_table.png', bbox_inches='tight')
+
+
 def main():
     # Load the data
     X, y, features = load_data()
@@ -40,7 +53,7 @@ def main():
     
     # Visualize the features
     visualize(X, y, features)
-
+ 
     #TODO: Split data into train and test
     data_count = X.shape[0]
     indices = np.arange(data_count)
@@ -58,8 +71,18 @@ def main():
 
     # Compute fitted values, MSE, etc.
     expected_y =  np.matmul(test_set_x, w)
-    MSE  = np.sum(np.square(expected_y - test_set_y))/test_set_x.shape[0]
-    print(MSE)
+    # MSE
+    MSE  = np.mean(np.square(expected_y - test_set_y))
+    print("Mean Square Error is: " + str(MSE))
+    # MAE
+    MAE = np.mean(np.absolute(expected_y - test_set_y))
+    print("Mean Absolute Error is: " + str(MAE))
+    # Mean Absolute Percentage Error
+    MAPE = 100 * np.mean(np.absolute(np.true_divide(expected_y - test_set_y, test_set_y)))
+    print("Mean Absolute Percentage Error: " + str(MAPE))
+
+    # plot the table
+    # plot_table(features, w)   
 
 
 if __name__ == "__main__":

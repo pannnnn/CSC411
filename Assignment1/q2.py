@@ -111,6 +111,6 @@ if __name__ == "__main__":
     taus = np.logspace(1.0,3,200)
     losses = run_k_fold(x,y,taus,k=5)
     plt.plot(losses)
-    plt.savefig('taus_plot.png', bbox_inches='tight')
+    plt.savefig('part2.png')
     print("min loss = {}".format(losses.min()))
 
