@@ -61,7 +61,9 @@ class GDOptimizer(object):
     def update_params(self, params, grad):
         # Update parameters using GD with momentum and return
         # the updated parameters
-        return None
+        self.vel = -(self.lr) * grad +  self.beta * self.vel
+        result = params + self.vel
+        return result
 
 
 class SVM(object):
@@ -71,7 +73,7 @@ class SVM(object):
 
     def __init__(self, c, feature_count):
         self.c = c
-        self.w = np.random.normal(0.0, 0.1, feature_count)
+        self.w = np.random.normal(0.0, 0.1, feature_count + 1)
         
     def hinge_loss(self, X, y):
         '''
@@ -80,7 +82,12 @@ class SVM(object):
         Returns a length-n vector containing the hinge-loss per data point.
         '''
         # Implement hinge loss
-        return None
+        # Add bias
+        X = np.concatenate((np.ones(X.shape[0]).reshape(-1,1), X), axis=1)
+        # w = np.append(np.random.normal(0.0, 0.1), self.w)
+        result = 1 - np.multiply(np.matmul(X, self.w), y)
+        result[result<0] = 0
+        return result
 
     def grad(self, X, y):
         '''
@@ -90,7 +97,15 @@ class SVM(object):
         Returns the gradient with respect to the SVM parameters (shape (m,)).
         '''
         # Compute (sub-)gradient of SVM objective
-        return None
+        # make X of shape (n, m+1)
+        hinge_loss = self.hinge_loss(X, y)
+        y[np.argwhere(hinge_loss==0)] = 0
+        X = np.concatenate((np.ones(X.shape[0]).reshape(-1,1), X), axis=1)
+        # w = np.append(0, self.w)
+        regularized_w = np.copy(self.w)
+        regularized_w[0] = 0
+        gradient = regularized_w - (self.c / X.shape[0]) * np.sum(np.multiply(y.reshape(-1,1), X), axis=0)
+        return gradient
 
     def classify(self, X):
         '''
@@ -99,7 +114,16 @@ class SVM(object):
         Returns the predicted class labels (shape (n,))
         '''
         # Classify points as +1 or -1
-        return None
+        X = np.concatenate((np.ones(X.shape[0]).reshape(-1,1), X), axis=1)
+        result = np.dot(X, self.w)
+        result[result>=0] = 1
+        result[result<0] = -1
+        return result
+
+    def compute_loss(self, X, Y):
+        regularization_term = 0.5 * np.dot(self.w, self.w)
+        loss = regularization_term + (self.c / X.shape[0]) * np.sum(self.hinge_loss(X,Y))
+        return loss
 
 def load_data():
     '''
@@ -142,7 +166,8 @@ def optimize_test_function(optimizer, w_init=10.0, steps=200):
 
     for _ in range(steps):
         # Optimize and update the history
-        pass
+        w = optimizer.update_params(w, func_grad(w))
+        w_history.append(w)
     return w_history
 
 def optimize_svm(train_data, train_targets, penalty, optimizer, batchsize, iters):
@@ -151,7 +176,69 @@ def optimize_svm(train_data, train_targets, penalty, optimizer, batchsize, iters
 
     SVM weights can be updated using the attribute 'w'. i.e. 'svm.w = updated_weights'
     '''
-    return None
+    svm = SVM(penalty, train_data.shape[1])
+    sampler = BatchSampler(train_data, train_targets, batchsize)
+    
+    for _ in range(iters):
+        sample_data, sample_targets = sampler.get_batch()
+        svm.w = optimizer.update_params(svm.w, svm.grad(sample_data, sample_targets))
+
+    return svm
+    
+def train_svm_and_test_on_MNIST(train_data, train_targets, test_data, test_targets, c, m, iters, beta):
+    optimizer_svm = GDOptimizer(0.05, beta)
+    trained_svm = optimize_svm(train_data, train_targets, c, optimizer_svm, m, iters)
+
+    training_loss = trained_svm.hinge_loss(train_data, train_targets)
+    # training_loss = trained_svm.compute_loss(train_data, train_targets)
+    print("The training loss: " + str(np.mean(training_loss)))
+
+    test_loss = trained_svm.hinge_loss(test_data, test_targets)
+    # test_loss = trained_svm.compute_loss(test_data, test_targets)
+    print("The test loss: " + str(np.mean(test_loss)))
+
+    training_set_prediction = trained_svm.classify(train_data)
+    train_difference = train_targets - training_set_prediction
+    training_set_accuray_rate = len(train_difference[train_difference == 0])/train_difference.shape[0]
+    print("The classification accuracy on the training set: " + str(training_set_accuray_rate))
+
+    test_set_prediction = trained_svm.classify(test_data)
+    test_difference = test_targets - test_set_prediction
+    test_set_accuray_rate = len(test_difference[test_difference == 0])/test_difference.shape[0]
+    print("The classification accuracy on the test set: " + str(test_set_accuray_rate))
+
+    plt.imshow(trained_svm.w[1:].reshape(-1,28), cmap='gray')
+    if beta == 0:
+        plt.savefig('2_3_w_beta_0.png')
+    else:
+        plt.savefig('2_3_w_beta_dot_1.png')
+    plt.cla()
+    plt.clf()
+
+
 
 if __name__ == '__main__':
-    pass
+    # 2.1 SGD With Momentum
+    optimizer_beta_0 = GDOptimizer(1.0)
+    result_beta_0 = optimize_test_function(optimizer_beta_0)
+    optimizer_beta_dot_9 = GDOptimizer(1.0, 0.9)
+    result_beta_dot_9 = optimize_test_function(optimizer_beta_dot_9)
+    plt.xlabel("itertaions")
+    plt.ylabel("value")
+    plt.plot(result_beta_0, 'g', result_beta_dot_9, 'r')
+    plt.savefig('2_1.png')
+    plt.cla()
+    plt.clf()
+
+    # 2.2 Training SVM
+    train_data, train_targets, test_data, test_targets = load_data()
+    c = 1.0
+    iters = 500
+    m = 100
+
+    print("Beta = 0:")
+    train_svm_and_test_on_MNIST(train_data, train_targets, test_data, test_targets, c, m, iters, 0)
+    # You should comment beta=0 case in order to have 92% accuracy on beta=1
+    # better not run two train_svm_and_test_on_MNIST in a row
+    print("Beta = 0.1:")
+    train_svm_and_test_on_MNIST(train_data, train_targets, test_data, test_targets, c, m, iters, 0.1)
